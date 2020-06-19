@@ -17,7 +17,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return ArticleResource::collection(Article::all()->sortByDesc('created_at'));
+        return ArticleResource::collection(Article::latest()->get());
     }
 
     /**
@@ -74,7 +74,8 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $article->update($request->all());
+        return response('Updated', Response::HTTP_ACCEPTED);
     }
 
     /**
