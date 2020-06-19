@@ -1,18 +1,22 @@
 <template>
     <div>
-        <navbar></navbar>
-        <card></card>
+        <component v-bind:is="layout()"></component>
     </div>
 </template>
 
 <script>
-import Navbar from './Navbar'
-import card from './articles/card'
-export default{
+import DefaultLayout from './DefaultLayout.vue';
+import NoneLayout from './NoneLayout.vue';
+export default {
     components: {
-        Navbar,
-        card
+        DefaultLayout,
+        NoneLayout
+    },
+    methods: {
+        layout() {
+            let layout = this.$route.meta.layout ? this.$route.meta.layout + '-layout' : 'default-layout';
+            return layout;
+        }
     }
-
 }
 </script>

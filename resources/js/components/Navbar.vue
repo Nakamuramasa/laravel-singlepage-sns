@@ -9,7 +9,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link">ログイン</a>
+                <router-link class="nav-link" to="/login">
+                    ログイン
+                </router-link>
             </li>
 
             <li class="nav-item">
