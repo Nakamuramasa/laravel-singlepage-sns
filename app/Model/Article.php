@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Article extends Model
 {
+    protected $fillable = ['title', 'body', 'user_id'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\User');
@@ -21,5 +23,10 @@ class Article extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany('App\Model\Tag')->withTimestamps();
+    }
+
+    public function getPathAttribute()
+    {
+        return asset("api/articles/$this->id");
     }
 }

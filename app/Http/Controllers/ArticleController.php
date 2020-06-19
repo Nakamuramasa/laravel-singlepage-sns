@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Model\Article;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\ArticleResource;
 
 class ArticleController extends Controller
 {
@@ -14,7 +17,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        return ArticleResource::collection(Article::all()->sortByDesc('created_at'));
     }
 
     /**
@@ -35,7 +38,9 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // auth()->user()->articles()->create($request->all);
+        Article::create($request->all());
+        return response('Created', Response::HTTP_CREATED);
     }
 
     /**
@@ -46,7 +51,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return new ArticleResource($article);
     }
 
     /**
@@ -80,6 +85,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
