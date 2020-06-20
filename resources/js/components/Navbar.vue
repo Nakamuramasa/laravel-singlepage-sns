@@ -1,24 +1,28 @@
 <template>
     <nav class="navbar navbar-expand navbar-dark blue-gradient">
-        <a class="navbar-brand"><i class="far fa-sticky-note mr-1"></i>laravel sns</a>
+        <router-link class="navbar-brand" to="/"><i class="far fa-sticky-note mr-1"></i>laravel sns</router-link>
 
         <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item">
-                <a class="nav-link">ユーザー登録</a>
+            <li class="nav-item" v-if="!isLogin">
+                <router-link class="nav-link" to="/register">
+                    ユーザー登録
+                </router-link>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" v-if="!isLogin">
                 <router-link class="nav-link" to="/login">
                     ログイン
                 </router-link>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link"><i class="fas fa-pen mr-1"></i>投稿する</a>
+            <li class="nav-item" v-if="isLogin">
+                <router-link class="nav-link" to="/articles/create">
+                    <i class="fas fa-pen mr-1"></i>投稿する
+                </router-link>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" v-if="isLogin">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle"></i>
                 </a>
@@ -27,19 +31,26 @@
                         マイページ
                     </button>
                     <div class="dropdown-divider"></div>
-                    <button form="logout-button" class="dropdown-item" type="submit">
+                    <router-link to="/logout" class="dropdown-item" type="button">
                         ログアウト
-                    </button>
+                    </router-link>
                 </div>
             </li>
-            <form id="logout-button" method="POST">
-            </form>
         </ul>
     </nav>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return {
+            isLogin: false
+        }
+    },
+    created(){
+        if(User.loggedIn()){
+            this.isLogin = true
+        }
+    },
 }
 </script>

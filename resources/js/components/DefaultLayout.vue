@@ -1,17 +1,15 @@
 <template>
     <div>
         <navbar></navbar>
-        <card></card>
+        <router-view/>
     </div>
 </template>
 
 <script>
 import Navbar from './Navbar'
-import Card from './articles/card'
 export default{
     components: {
         Navbar,
-        Card
     }
 }
 </script>

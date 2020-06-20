@@ -9,6 +9,7 @@ import User from './Helpers/User'
 window.Vue = require('vue');
 window.axios = axios;
 window.User = User
+window.EventBus = new Vue();
 
 const app = new Vue({
     components: {

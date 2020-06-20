@@ -38,7 +38,9 @@
                             </form>
 
                             <div class="mt-0">
-                                <a class="card-text">ユーザー登録はこちら</a>
+                                <router-link  class="card-text" to="/register">
+                                    ユーザー登録はこちら
+                                </router-link>
                             </div>
 
                         </div>
@@ -56,7 +58,12 @@ export default {
             form: {
                 email: null,
                 password: null
-            }
+            },
+        }
+    },
+    created(){
+        if(User.loggedIn()){
+            this.$router.push({name: 'home'})
         }
     },
     methods:{
